@@ -2,9 +2,11 @@ const express = require("express");
 const chats = require("./data/data");
 const dotenv = require("dotenv");
 const cors = require("cors");
+const connectDB = require("./config/db");
 const app = express();
 app.use(cors());
 dotenv.config();
+connectDB()
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.get("/", (req, res) => {
@@ -27,4 +29,4 @@ app.get("/api/chat/:id", (req, res) => {
     }
 });
 const PORT = process.env.PORT;
-app.listen(PORT, console.log("Server Started on POrt 5000"));
+app.listen(PORT, console.log("Server Started on PORT",PORT));
