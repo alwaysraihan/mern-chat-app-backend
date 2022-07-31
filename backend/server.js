@@ -3,15 +3,19 @@ const chats = require("./data/data");
 const dotenv = require("dotenv");
 const cors = require("cors");
 const connectDB = require("./config/db");
+const bodyParser = require('body-parser')
+
 const colors = require('colors');
 const userRoutes = require("./routes/userRoutes");
 const { errorHandler, notFound } = require("./middleware/errorMiddleware");
 const app = express();
 app.use(cors());
 dotenv.config();
-connectDB()
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+connectDB()
 
 app.get("/", (req, res) => {
     res.status(200).send("Everything okay. I am from chat application.");
